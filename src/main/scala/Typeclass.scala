@@ -30,8 +30,19 @@ sealed trait LinkedList[A] {
 final case class Pair[A](head: A, tail: LinkedList[A]) extends LinkedList[A]
 final case class End[A]() extends LinkedList[A]
 
-sealed trait CoLinkedList[A] {
-  def apply(index: Int): A = ???
+sealed trait CoLinkedList[+A] {
+  def apply(index: Int): A = this match {
+    case p: CoPair[A] => {
+      if (index == 0) {
+        return p.head
+      } else {
+        return p.tail(index - 1)
+      }
+    }
+    case CoEnd => {
+      throw new Exception("Out of Boundary")
+    }
+  }
 }
 final case class CoPair[A](head: A, tail: CoLinkedList[A])
     extends CoLinkedList[A]
