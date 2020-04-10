@@ -13,7 +13,18 @@ final case object Green extends TrafficLight
 final case object Yellow extends TrafficLight
 
 sealed trait LinkedList[A] {
-  def apply(index: Int): A = ???
+  def apply(index: Int): A = this match {
+    case Pair(head, tail) => {
+      if (index == 0) {
+        return head
+      } else {
+        return tail(index - 1)
+      }
+    }
+    case End() => {
+      throw new Exception("Out of Boundary")
+    }
+  }
 }
 
 final case class Pair[A](head: A, tail: LinkedList[A]) extends LinkedList[A]
