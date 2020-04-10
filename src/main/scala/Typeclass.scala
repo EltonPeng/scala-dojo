@@ -1,7 +1,11 @@
 package typeclass
 
 sealed trait TrafficLight {
-  def next: TrafficLight = ???
+  def next: TrafficLight = this match {
+    case Red    => Green
+    case Green  => Yellow
+    case Yellow => Red
+  }
 }
 
 final case object Red extends TrafficLight
