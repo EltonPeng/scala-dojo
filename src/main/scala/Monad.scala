@@ -75,7 +75,8 @@ object Printable {
 final case class Box[A](value: A)
 
 object IdMonad {
-  def sumSquare[F[_]: Monad](a: F[Int], b: F[Int]): F[Int] = ???
+  def sumSquare[F[_]: Monad](a: F[Int], b: F[Int]): F[Int] =
+    a.flatMap(x => b.map(y => x * x + y * y))
 }
 
 object Writers {
