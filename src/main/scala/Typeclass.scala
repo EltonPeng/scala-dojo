@@ -57,7 +57,9 @@ object JsonWriter {
     jsonWriter.write(a)
   }
   implicit class Ops[A](a: A) {
-    def writeJson: String = ???
+    def writeJson(implicit jsonWriter: JsonWriter[A]): String = {
+      jsonWriter.write(a)
+    }
   }
 }
 
@@ -104,6 +106,8 @@ object CatPerson {
       }
     }
   implicit class CatPersonOps(cp: CatPerson) {
-    def writeJson: String = ???
+    def writeJson(implicit jsonWriter: JsonWriter[CatPerson]): String = {
+      jsonWriter.write(cp)
+    }
   }
 }
